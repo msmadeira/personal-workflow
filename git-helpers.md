@@ -3,5 +3,5 @@
 ## Git Aliases
 
 ```
-git config --global http://alias.ac '!git add -A && git commit -m'
+git config --global alias.ac '!git add -A && git commit -m'
 ```
