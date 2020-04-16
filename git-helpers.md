@@ -3,8 +3,9 @@
 ## Git Aliases
 
 ```
+branch-name = !git rev-parse --abbrev-ref HEAD
+publish = !git push -u origin $(git branch-name)
 ac = !git add -A && git commit -m
-publish = "!git push -u origin $(git branch-name)"
 ```
 
 ## Terminal Functions
