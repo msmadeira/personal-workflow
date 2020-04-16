@@ -3,7 +3,8 @@
 ## Git Aliases
 
 ```
-git config --global alias.ac '!git add -A && git commit -m'
+ac = !git add -A && git commit -m
+publish = "!git push -u origin $(git branch-name)"
 ```
 
 ## Terminal Functions
