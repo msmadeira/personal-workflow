@@ -6,6 +6,7 @@
 branch-name = !git rev-parse --abbrev-ref HEAD
 publish = !git push -u origin $(git branch-name)
 ac = !git add -A && git commit -m
+refresh = git config --global alias.refresh '!git fetch origin master:master && git merge master'
 ```
 
 ## Terminal Functions
