@@ -10,9 +10,16 @@ git config --global alias.refresh '!git fetch origin master:master && git merge 
 ```
 
 ## Terminal Functions
-
+### Bash
 ```
 function git-clear-local-branches() {
     git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d
+}
+```
+### PowerShell
+```
+Function git-clear-local-branches() {
+    git fetch -p;
+    git branch -vv | where {$_ -match '\[origin/.*: gone\]'} | foreach { git branch -d $_.split(" ", [StringSplitOptions]'RemoveEmptyEntries')[0]};
 }
 ```
