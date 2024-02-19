@@ -6,7 +6,9 @@
 git config --global rerere.enabled true
 # git branch improvements
 git config --global branch.sort -committerdate
-git config --global column.ui auto 
+git config --global column.ui auto
+# Improves speed of things in the background
+git maintenance start
 ```
 
 ## Git Aliases
