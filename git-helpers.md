@@ -4,6 +4,9 @@
 ```
 # Save a conflict resolution and use it for next conflicts
 git config --global rerere.enabled true
+# git branch improvements
+git config --global branch.sort -committerdate
+git config --global column.ui auto 
 ```
 
 ## Git Aliases
