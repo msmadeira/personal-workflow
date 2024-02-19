@@ -1,5 +1,11 @@
 # Git Helpers
 
+## Configurations
+```
+# Save a conflict resolution and use it for next conflicts
+git config --global rerere.enabled true
+```
+
 ## Git Aliases
 
 ```
