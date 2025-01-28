@@ -16,7 +16,7 @@ git maintenance start
 ```
 git config --global alias.branch-name '!git rev-parse --abbrev-ref HEAD'
 git config --global alias.publish '!git push -u origin $(git branch-name)'
-git config --global alias.refresh '!git fetch origin master:master && git merge master'
+git config --global alias.refresh '!git fetch origin main:main && git merge main'
 
 # Add + Commit
 ## Default
