@@ -1,0 +1,9 @@
+{
+  "name": "vendorsmart",
+  "description": "Personal VendorSmart workflow helpers — conventional commits driven by branch naming",
+  "version": "1.0.0",
+  "author": {
+    "name": "Matheus Madeira",
+    "email": "madeiras.matheus@gmail.com"
+  }
+}
