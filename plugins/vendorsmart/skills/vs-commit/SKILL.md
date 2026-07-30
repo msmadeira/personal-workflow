@@ -46,24 +46,24 @@ If the segment is in neither list (e.g. the branch is `fix-stuff` or `my-branch`
 **`ID`** — take the segment after `type/` up to the first `/`, then test it against these patterns **in order**. The order matters.
 
 1. **`NO-TICKET` sentinel** — the segment starts with `NO-TICKET`, `NOTICKET`, or `no-ticket` (any case) → `NOTICKET`
-2. **Jira-style** — matches `^[A-Z]+-\d+`, e.g. `AP-3082`. Test this **before** splitting on `-`, otherwise `AP-3082` truncates to `AP`
-3. **ClickUp** — take everything up to the first `-`; accept it only if it matches `^[a-z0-9]{8,10}$` **and contains at least one digit**, e.g. `86agf2tw8`
+2. **Jira-style** — matches `^[A-Z]+-\d+`, e.g. `ABC-1234`. Test this **before** splitting on `-`, otherwise `ABC-1234` truncates to `AP`
+3. **ClickUp** — take everything up to the first `-`; accept it only if it matches `^[a-z0-9]{8,10}$` **and contains at least one digit**, e.g. `86xk4m2p9`
 4. **Otherwise** → `NOTICKET`
 
-The digit requirement and the 8-character floor in rule 3 are load-bearing. Without them, ordinary descriptive branches get a word promoted to a ticket ID — `chore/update-deps` would commit as `chore: #update deps`, and `feat/vendor-profile-compliance` as `feat: #vendor profile compliance`.
+The digit requirement and the 8-character floor in rule 3 are load-bearing. Without them, ordinary descriptive branches get a word promoted to a ticket ID — `chore/update-deps` would commit as `chore: #update deps`, and `feat/user-profile-settings` as `feat: #user profile settings`.
 
 Never prompt the user for a ticket ID — fall back to `NOTICKET` silently.
 
 | Branch | Type | ID |
 |---|---|---|
-| `feat/86agf2tw8-w9-modal-compliance` | `feat` | `86agf2tw8` |
-| `feat/86afhkt91/waivers-list` | `feat` | `86afhkt91` |
-| `fix/86a85czua/adjust-amount-list` | `fix` | `86a85czua` |
-| `fix/AP-3082-ach-payment-method` | `fix` | `AP-3082` |
-| `refactor/AP-12-cleanup` | `refactor` | `AP-12` |
+| `feat/86xk4m2p9-export-summary-modal` | `feat` | `86xk4m2p9` |
+| `feat/86tq7wz13/invoices-list` | `feat` | `86tq7wz13` |
+| `fix/86bn5r8v4/adjust-amount-options` | `fix` | `86bn5r8v4` |
+| `fix/ABC-1234-card-payment-method` | `fix` | `ABC-1234` |
+| `refactor/ABC-12-cleanup` | `refactor` | `ABC-12` |
 | `test/NO-TICKET-fix-test` | `test` | `NOTICKET` |
 | `chore/update-deps` | `chore` | `NOTICKET` |
-| `feat/vendor-profile-compliance` | `feat` | `NOTICKET` |
+| `feat/user-profile-settings` | `feat` | `NOTICKET` |
 | `fix-stuff` (no valid type) | inferred from diff | `NOTICKET` |
 
 ## Step 3 — Compose the subject
@@ -77,16 +77,16 @@ Format: `{type}: #{ID} {short-description}`
 Good:
 
 ```
-feat: #86agf2tw8 add w9 modal on compliance
-fix: #AP-3082 correct ach payment method validation
+feat: #86xk4m2p9 add export modal on summary
+fix: #ABC-1234 correct card payment method validation
 chore: #NOTICKET bump eslint to v9
 ```
 
 Bad:
 
 ```
-feat: #86agf2tw8 Added a W9 modal to the compliance component and wired it up.
-   ^ 77 chars, capitalized, trailing period, describes how
+feat: #86xk4m2p9 Added an export modal to the summary component and wired it all up.
+   ^ 84 chars, capitalized, trailing period, describes how
 fix: adjust amount options
    ^ missing #{ID}
 ```
@@ -109,7 +109,7 @@ Without a body:
 
 ```bash
 git add -A
-git commit -m "feat: #86agf2tw8 add w9 modal on compliance"
+git commit -m "feat: #86xk4m2p9 add export modal on summary"
 ```
 
 With a body, use a heredoc so the newlines survive:
@@ -117,7 +117,7 @@ With a body, use a heredoc so the newlines survive:
 ```bash
 git add -A
 git commit -F - <<'EOF'
-feat: #86agf2tw8 add w9 modal on compliance
+feat: #86xk4m2p9 add export modal on summary
 
 - Reloads vendor status after upload
 EOF

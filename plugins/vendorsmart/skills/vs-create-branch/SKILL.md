@@ -4,7 +4,7 @@ description: |
   Creates a git branch from a ClickUp task ID, following the VendorSmart Web Git Flow convention `{type}/{ID-or-NOTICKET}-{description}`. Infers the type from the task and builds a short kebab-cased description from its name. Use when the user wants to start work on a ClickUp task, asks to create or cut a branch for a ticket, mentions vs-create-branch, or gives a task ID and wants a branch for it.
   Do NOT use for committing (use vs-commit), pushing, opening pull requests, renaming or deleting branches, or creating branches in repos that do not follow the VendorSmart branch convention.
 user-invocable: true
-argument-hint: ClickUp task ID (e.g. 86agf2tw8), optionally followed by an explicit type
+argument-hint: ClickUp task ID (e.g. 86xk4m2p9), optionally followed by an explicit type
 allowed-tools: Bash, Read, mcp__claude_ai_ClickUp__*
 ---
 
@@ -20,11 +20,11 @@ Requires a connected ClickUp MCP server. If no ClickUp tool is available, say so
 
 ## Step 1 — Resolve the input
 
-`$ARGUMENTS` is a ClickUp task ID, optionally followed by an explicit type (`86agf2tw8 refactor`).
+`$ARGUMENTS` is a ClickUp task ID, optionally followed by an explicit type (`86xk4m2p9 refactor`).
 
 - An explicit type always wins over inference. Validate it against the table in Step 3.
 - No ID given → ask for one. If the user says there is no ticket, use `NOTICKET` and ask for a short description.
-- ClickUp IDs look like `86agf2tw8`; custom IDs like `DEV-1234` also work.
+- ClickUp IDs look like `86xk4m2p9`; custom IDs like `DEV-1234` also work.
 
 ## Step 2 — Fetch the task
 
@@ -72,18 +72,18 @@ Always report which rule fired, so a wrong guess is easy to spot.
 
 Summarize the task **name** (not the description) into a short label.
 
-**Rephrase, do not truncate.** Write the shortest imperative verb phrase that identifies the work, then kebab-case it. Deleting stopwords from the title left-to-right and cutting it off is the wrong approach — it keeps noise words and drops the point. `Vendor should be redirected to generate W9 when trying to manually uploading it` becomes `redirect-vendor-generate-w9`, not `vendor-redirected-generate-w9-trying`.
+**Rephrase, do not truncate.** Write the shortest imperative verb phrase that identifies the work, then kebab-case it. Deleting stopwords from the title left-to-right and cutting it off is the wrong approach — it keeps noise words and drops the point. `User should be redirected to the summary page when trying to manually export it` becomes `redirect-user-to-summary`, not `user-redirected-summary-page-trying`.
 
 - Lead with the action as an imperative: `should be redirected` → `redirect`, `Edit …` → `edit`.
-- Keep only what distinguishes this task. Drop circumstantial clauses (`when trying to…`, `manually`, `if possible`) and words a reader can infer (`list` in `waivers list` when `waivers` is already there).
+- Keep only what distinguishes this task. Drop circumstantial clauses (`when trying to…`, `manually`, `if possible`) and words a reader can infer (`list` in `invoices list` when `invoices` is already there).
 - Output must match `^[a-z0-9]+(-[a-z0-9]+)*$` — lowercase alphanumerics separated by single hyphens. No `--`, no leading or trailing `-`.
 - Target **3–5 words and 40 characters or fewer**. If it does not fit, cut the least distinguishing word, not the verb.
 
 | Task name | Description |
 |---|---|
-| `Edit Management Company of a Subscription` | `edit-management-company` |
-| `Vendor should be redirected to generate W9 when trying to manually uploading it` | `redirect-vendor-generate-w9` |
-| `Include management company on waivers list` | `include-management-company-waivers` |
+| `Edit Billing Account of a Subscription` | `edit-billing-account` |
+| `User should be redirected to the summary page when trying to manually export it` | `redirect-user-to-summary` |
+| `Include owner name on invoices list` | `include-owner-name-invoices` |
 | `Adjust amount options` | `adjust-amount-options` |
 
 Before moving on, check the result against the regex and the 40-character limit.
@@ -107,7 +107,7 @@ git rev-parse --verify origin/main    # confirm the base exists
 ## Step 6 — Create the branch
 
 ```bash
-git switch -c feat/86ag91vwj-edit-management-company origin/main
+git switch -c feat/86xk4m2p9-edit-billing-account origin/main
 ```
 
 Before creating, check for problems and stop to ask rather than pushing through:
