@@ -1,0 +1,18 @@
+{
+  "name": "personal-plugins",
+  "owner": {
+    "name": "Matheus Madeira",
+    "email": "matheusm@vendorsmart.com"
+  },
+  "metadata": {
+    "description": "Personal Claude Code plugins — private workflow automation and helpers"
+  },
+  "plugins": [
+    {
+      "name": "vendorsmart",
+      "description": "Personal VendorSmart workflow helpers — conventional commits driven by branch naming",
+      "source": "./plugins/vendorsmart",
+      "category": "development"
+    }
+  ]
+}
