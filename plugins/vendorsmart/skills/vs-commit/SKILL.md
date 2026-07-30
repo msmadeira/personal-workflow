@@ -35,11 +35,13 @@ Abort with a clear message if:
 
 Branch format is `<type>/<id>-<description>` or `<type>/<id>/<description>`.
 
-**`type`** — the segment before the first `/`. Valid values:
+**`type`** — the segment before the first `/`. The seven canonical types, from the Web Git Flow doc:
 
-`feat` · `fix` · `chore` · `refactor` · `test` · `docs` · `perf` · `build` · `ci` · `style`
+`feat` · `fix` · `hotfix` · `docs` · `refactor` · `test` · `chore`
 
-If that segment is not in the list (e.g. the branch is `fix-stuff` or `my-branch`), infer the type from the diff instead and say so in the final report.
+Also accept `perf`, `build`, `ci`, and `style` as legacy prefixes. They are not part of the convention and `vs-create-branch` will never produce them, but recognizing them keeps the ticket ID parseable on older branches.
+
+If the segment is in neither list (e.g. the branch is `fix-stuff` or `my-branch`), infer the type from the diff instead and say so in the final report.
 
 **`ID`** — take the segment after `type/` up to the first `/`, then test it against these patterns **in order**. The order matters.
 
