@@ -16,7 +16,7 @@
     },
     {
       "name": "git",
-      "description": "Generic git workflow helpers — conventional commits without ticket IDs",
+      "description": "Generic git workflow helpers",
       "source": "./plugins/git",
       "category": "development"
     }

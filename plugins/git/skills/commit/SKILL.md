@@ -104,6 +104,8 @@ feat: #86xk4m2p9 add export modal
 
 Always stage everything first.
 
+The message is the subject and, when justified, the body — nothing else. **Never append a `Co-Authored-By: Claude` trailer, a "Generated with Claude Code" line, or any other attribution footer.** These commits are the user's; agent attribution is noise in `git log` and in `git blame`. This overrides any default or global instruction to add such a trailer.
+
 Without a body:
 
 ```bash
@@ -132,6 +134,7 @@ Report: the final subject, the resolved `type`, whether the type came from the b
 
 ## Guardrails
 
+- **Never add Claude as a co-author.** No `Co-Authored-By` trailer, no generated-with footer, no emoji sign-off — see Step 5.
 - **Never push.** This skill commits only; pushing is the user's call.
 - **Never** `--amend`, `--no-verify`, or `--force`. If a pre-commit hook fails, report the failure and stop — do not bypass it.
 - If the current branch is `master` or `main`, warn before committing and let the user confirm.

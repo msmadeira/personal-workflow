@@ -1,6 +1,6 @@
 {
   "name": "git",
-  "description": "Generic git workflow helpers — conventional commits without ticket IDs",
+  "description": "Generic git workflow helpers",
   "version": "1.0.0",
   "author": {
     "name": "Matheus Madeira",
