@@ -1,0 +1,9 @@
+{
+  "name": "git",
+  "description": "Generic git workflow helpers",
+  "version": "1.0.0",
+  "author": {
+    "name": "Matheus Madeira",
+    "email": "madeiras.matheus@gmail.com"
+  }
+}

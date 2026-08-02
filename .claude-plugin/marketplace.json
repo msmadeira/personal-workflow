@@ -13,6 +13,12 @@
       "description": "Personal VendorSmart workflow helpers — conventional commits driven by branch naming",
       "source": "./plugins/vendorsmart",
       "category": "development"
+    },
+    {
+      "name": "git",
+      "description": "Generic git workflow helpers",
+      "source": "./plugins/git",
+      "category": "development"
     }
   ]
 }

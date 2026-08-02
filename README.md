@@ -15,11 +15,22 @@ Personal VendorSmart workflow helpers.
 
 Both use the same branch types: `feat`, `fix`, `hotfix`, `docs`, `refactor`, `test`, `chore`.
 
+### `git`
+
+Generic git helpers for repos that do not track work with ticket IDs.
+
+| Skill | Invoke | What it does |
+|---|---|---|
+| `commit` | `/git:commit [description]` | Stages everything and commits as `{type}: short description`. The type comes from the branch prefix when there is one, otherwise it is inferred from the diff. No ticket ID in the subject. Subject capped at 70 characters; body only when strictly necessary. |
+
+Use this instead of `vs-commit` on personal repos; use `vs-commit` where the subject needs `#{ID}`.
+
 ## Install
 
 ```
 /plugin marketplace add C:/Users/mathe/personal/personal-workflow
 /plugin install vendorsmart@personal-plugins
+/plugin install git@personal-plugins
 /reload-plugins
 ```
 
