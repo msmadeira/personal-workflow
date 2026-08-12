@@ -2,7 +2,7 @@
 name: commit
 description: |
   Commits staged and unstaged work as `{type}: short description`, deriving the type from the current branch name or, when the branch carries none, from the diff. Use when the user asks to commit, wants a conventional commit message, or mentions commit in a repo that does not use ticket IDs.
-  Do NOT use for pushing, opening pull requests, writing PR descriptions, amending or rewriting history, or commits that need a ticket ID in the subject (use `/vendorsmart:vs-commit` for those).
+  Do NOT use for pushing, opening pull requests or writing PR descriptions (use `/git:create-pr`), amending or rewriting history, or commits that need a ticket ID in the subject (use `/vendorsmart:vs-commit` for those).
 user-invocable: true
 argument-hint: optional short description (inferred from the diff when omitted)
 allowed-tools: Bash, Read

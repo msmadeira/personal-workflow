@@ -2,7 +2,7 @@
 name: vs-commit
 description: |
   Commits staged and unstaged work using the VendorSmart convention `{type}: #{ID} short description`, deriving the type and ticket ID from the current branch name. Use when the user asks to commit, wants a conventional commit message, mentions vs-commit, or asks for a commit following the branch/ticket pattern.
-  Do NOT use for pushing, opening pull requests, writing PR descriptions, amending or rewriting history, or commits in repos that do not follow `<type>/<id>-<description>` branch naming.
+  Do NOT use for pushing, opening pull requests or writing PR descriptions (use `/git:create-pr`), amending or rewriting history, or commits in repos that do not follow `<type>/<id>-<description>` branch naming.
 user-invocable: true
 argument-hint: optional short description (inferred from the diff when omitted)
 allowed-tools: Bash, Read
