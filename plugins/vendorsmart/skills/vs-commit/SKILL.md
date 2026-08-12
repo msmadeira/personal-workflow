@@ -131,8 +131,10 @@ git log -1 --oneline
 
 Report: the final subject, the resolved `type` and `ID`, the subject's character count, whether the ID was parsed from the branch or fell back to `NOTICKET`, and the `git log` output.
 
+Then name the next step: `/git:create-pr` pushes the branch and opens the pull request, reusing this subject as the title when it is the only commit on the branch. Mention it once; do not run it.
+
 ## Guardrails
 
-- **Never push.** This skill commits only; pushing is the user's call.
+- **Never push.** This skill commits only. Pushing and opening the pull request are `/git:create-pr`.
 - **Never** `--amend`, `--no-verify`, or `--force`. If a pre-commit hook fails, report the failure and stop — do not bypass it.
 - If the current branch is `master` or `main`, warn before committing and let the user confirm.

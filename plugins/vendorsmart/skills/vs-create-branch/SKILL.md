@@ -2,7 +2,7 @@
 name: vs-create-branch
 description: |
   Creates a git branch from a ClickUp task ID, following the VendorSmart Web Git Flow convention `{type}/{ID-or-NOTICKET}-{description}`. Infers the type from the task and builds a short kebab-cased description from its name. Use when the user wants to start work on a ClickUp task, asks to create or cut a branch for a ticket, mentions vs-create-branch, or gives a task ID and wants a branch for it.
-  Do NOT use for committing (use vs-commit), pushing, opening pull requests, renaming or deleting branches, or creating branches in repos that do not follow the VendorSmart branch convention.
+  Do NOT use for committing (use `/vendorsmart:vs-commit`), pushing or opening pull requests (use `/git:create-pr`), renaming or deleting branches, or creating branches in repos that do not follow the VendorSmart branch convention.
 user-invocable: true
 argument-hint: ClickUp task ID (e.g. 86xk4m2p9), optionally followed by an explicit type
 allowed-tools: Bash, Read, mcp__claude_ai_ClickUp__*
@@ -123,9 +123,13 @@ git branch --show-current
 
 Report the branch name, the resolved type and which rule inferred it, the base branch, and the task title and URL so the user can confirm it is the right ticket.
 
+Then name the rest of the chain in one line: `/vendorsmart:vs-commit` to commit, `/git:create-pr` to push and open the pull request. Mention them once; do not run either.
+
+**The base branch chosen here is the base the pull request will target.** A `hotfix` branch cut from `release` must open against `release`, not `main` — say so in the report when the base is not `main`, since `/git:create-pr` otherwise defaults to the repository's default branch and asks for confirmation before using `release`.
+
 ## Guardrails
 
-- **Never push.** Creating the branch locally is the whole job.
+- **Never push.** Creating the branch locally is the whole job. Pushing and opening the pull request are `/git:create-pr`.
 - Never delete, rename, or force-move an existing branch.
-- Never commit — that is `vs-commit`.
+- Never commit — that is `/vendorsmart:vs-commit`.
 - If the task ID cannot be resolved, stop and report. Do not fall back to `NOTICKET` silently; `NOTICKET` is only for when the user says there is no ticket.

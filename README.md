@@ -26,6 +26,18 @@ Generic git helpers. `commit` is for repos that do not track work with ticket ID
 
 Use `commit` instead of `vs-commit` on personal repos; use `vs-commit` where the subject needs `#{ID}`. `create-pr` picks up whichever convention the commits already used, so it needs no ticketless variant.
 
+## The chain
+
+The skills are meant to be run in order, one per step, and each one names the next in its report:
+
+```
+/vendorsmart:vs-create-branch <task-id>     branch off main (or release for hotfix)
+/vendorsmart:vs-commit  or  /git:commit     commit — never pushes
+/git:create-pr                              push, fill the PR template, open the PR
+```
+
+Each step stops at its own boundary, so nothing happens to the remote until the last one. `create-pr` refuses to run on a dirty tree and points back at the right commit skill; when the branch has a single commit, it reuses that commit's subject as the PR title, so the two never drift.
+
 ## Install
 
 ```
