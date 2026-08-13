@@ -136,12 +136,34 @@ git diff "origin/$BASE...HEAD" --stat
 
 Then fill it in, under these rules:
 
-- **Preserve every heading, verbatim and in order.** Do not reorder, rename, drop, or add sections. The template is the reviewers' agreed shape; a pull request that quietly restructures it is harder to read, not easier.
+- **Preserve every heading, verbatim and in order** — with the single exception below. Do not reorder, rename, drop, or add sections. The template is the reviewers' agreed shape; a pull request that quietly restructures it is harder to read, not easier.
 - Strip an HTML comment only where it is an instructional hint to the author (`<!-- Explanation of what was done -->`). Leave comments that carry information a reviewer wants.
-- Describe **what** changed and **why**, one line per meaningful file or coherent group. Read the diff — never describe a file you have not looked at.
+- Describe **what** changed and **why**, one line per coherent group of changes. Read the diff — never describe a file you have not looked at.
 - **Tick a checklist box only when the statement is actually true.** When a template asks whether the affected tests pass, it stays unticked unless the tests were run in this session. An unticked box is honest; a ticked one is a claim.
 - Leave a screenshot section, a ticket-link section, or anything else you cannot know as an empty stub, and **name every stub you left in the Step 7 report**. Never invent a ClickUp or Jira URL.
 - If a section genuinely does not apply, write `N/A` under it rather than deleting it.
+
+### Drop a section that only restates the title
+
+Some templates open with a section whose entire content would be the pull request title — `## Title`, `## PR Title`, `## Name`, or a heading followed by a hint like `<!-- e.g. feat: add export modal -->`. **Delete that section outright**, heading and all, and let the title live on the pull request title alone. Repeating it in the body is duplication a reviewer has to read twice.
+
+This is the only heading you may remove. A section that asks for a *summary*, a *description*, or *what was done* is not a title section — it wants prose, so fill it in.
+
+### Keep it short, and skip the noise
+
+The body is a reviewer's orientation, not a changelog. Aim for **the shortest body that still answers "what changed and why"** — a handful of bullets, not one per file. Prefer one bullet covering a coherent group over five covering its parts.
+
+Say nothing about changes that carry no review value:
+
+- lockfiles and generated or vendored output (`package-lock.json`, `dist/`, `*.g.*`, snapshots)
+- formatting, whitespace, and import reordering with no behavioral change
+- pure renames and moves, unless the move *is* the point of the branch
+- version and dependency bumps that are incidental to the branch's purpose
+- test scaffolding churn, when the tests themselves are already covered by a bullet
+
+They stay in the diff; they do not need a line in the description. Mention such a change only when a reviewer would be confused by its absence — a lockfile update that pulls in a new runtime dependency, say.
+
+Do not add framing the template did not ask for: no preamble, no "this PR…" opener, no restating the ticket ID already in the title, no summary of the summary.
 
 When the repository belongs to VendorSmart, **load** the `vendorsmart-angular:pr-guide` skill and apply its title, label, and body conventions on top of the discovered template. It is `user-invocable: false`, so load it as a knowledge skill — it is not a command. Its conventions are additive here: the template on disk still wins on structure, because `pr-guide` documents one repository's template and this skill runs in all of them.
 
@@ -180,7 +202,13 @@ The body is the filled template and nothing else. **Never append a "Generated wi
 gh pr view --json url,title,baseRefName --jq '.'
 ```
 
-Report: the pull request URL, the resolved base branch and whether it came from the default branch or the `hotfix` exception, the final title with its character count, which template path was used — or that none was found and the fallback body was used — every section left as a stub, and whether the `ai-generated` label was applied.
+Report in **three lines at most**:
+
+1. the title and the pull request URL,
+2. the base branch — and only if it is *not* the default branch, why,
+3. anything the user must act on: a stub left empty, a checkbox left unticked, a template that was not found.
+
+Nothing else. Do not echo the body back — the user can open the link. Skip the character count, the template path, and the label outcome unless something went wrong with them. A clean run is three lines; silence on a point means it went as expected.
 
 ## Guardrails
 
