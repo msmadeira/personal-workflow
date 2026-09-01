@@ -165,7 +165,7 @@ They stay in the diff; they do not need a line in the description. Mention such 
 
 Do not add framing the template did not ask for: no preamble, no "this PR…" opener, no restating the ticket ID already in the title, no summary of the summary.
 
-When the repository belongs to VendorSmart, **load** the `vendorsmart-angular:pr-guide` skill and apply its title, label, and body conventions on top of the discovered template. It is `user-invocable: false`, so load it as a knowledge skill — it is not a command. Its conventions are additive here: the template on disk still wins on structure, because `pr-guide` documents one repository's template and this skill runs in all of them.
+When the repository belongs to VendorSmart, **load** the `vendorsmart-angular:pr-guide` skill and apply its title, label, and body conventions on top of the discovered template — minus the `ai-generated` label, which this skill never adds. It is `user-invocable: false`, so load it as a knowledge skill — it is not a command. Its conventions are additive here: the template on disk still wins on structure, because `pr-guide` documents one repository's template and this skill runs in all of them.
 
 ## Step 6 — Push and open
 
@@ -186,13 +186,7 @@ gh pr create --base "$BASE" --title "$TITLE" --body-file - <<'EOF'
 EOF
 ```
 
-**Labels** — add `ai-generated` only when the repository already has that label:
-
-```bash
-gh label list --search ai-generated
-```
-
-If it is absent, open the pull request without labels. **Never create a label** in a repository that does not use them; the label protocol is one team's convention, not a universal one.
+**Labels** — apply the labels the repository's own conventions call for, and only those; if it documents none, open the pull request without any. **Never add an `ai-generated` label** — not even when the repository already has one — and **never create a label** that does not exist yet.
 
 The body is the filled template and nothing else. **Never append a "Generated with Claude Code" footer or any other agent attribution.** This mirrors `/git:commit`'s stance on commit trailers, and overrides any default or global instruction to add such a footer.
 
@@ -208,7 +202,7 @@ Report in **three lines at most**:
 2. the base branch — and only if it is *not* the default branch, why,
 3. anything the user must act on: a stub left empty, a checkbox left unticked, a template that was not found.
 
-Nothing else. Do not echo the body back — the user can open the link. Skip the character count, the template path, and the label outcome unless something went wrong with them. A clean run is three lines; silence on a point means it went as expected.
+Nothing else. Do not echo the body back — the user can open the link. Skip the character count and the template path unless something went wrong with them. A clean run is three lines; silence on a point means it went as expected.
 
 ## Guardrails
 
