@@ -26,12 +26,21 @@ Generic git helpers. `commit` is for repos that do not track work with ticket ID
 
 Use `commit` instead of `vs-commit` on personal repos; use `vs-commit` where the subject needs `#{ID}`. `create-pr` picks up whichever convention the commits already used, so it needs no ticketless variant.
 
+### `workflow`
+
+Generic helpers for running multi-step work.
+
+| Skill | Invoke | What it does |
+|---|---|---|
+| `progress-checklist` | `/workflow:progress-checklist [ticket \| description \| list]` | Builds a checklist from a ticket's acceptance criteria, a description of work to break down, or a list you give, then ends every reply with it, ticking items as they're verified and keeping open questions on the list until they're decided. The checklist lives only in the replies, never in a tracker file. |
+
 ## Install
 
 ```
 /plugin marketplace add C:/Users/mathe/personal/personal-workflow
 /plugin install vendorsmart@personal-plugins
 /plugin install git@personal-plugins
+/plugin install workflow@personal-plugins
 /reload-plugins
 ```
 
