@@ -32,7 +32,7 @@ Generic helpers for running multi-step work.
 
 | Skill | Invoke | What it does |
 |---|---|---|
-| `progress-checklist` | `/workflow:progress-checklist [ticket]` | Builds a checklist from the ticket's acceptance criteria and the places that change, then ends every reply with it, ticking items as they're verified and keeping open questions on the list until they're decided. The checklist lives only in the replies, never in a tracker file. |
+| `progress-checklist` | `/workflow:progress-checklist [ticket \| description \| list]` | Builds a checklist from a ticket's acceptance criteria, a description of work to break down, or a list you give, then ends every reply with it, ticking items as they're verified and keeping open questions on the list until they're decided. The checklist lives only in the replies, never in a tracker file. |
 
 ## Install
 

@@ -1,10 +1,10 @@
 ---
 name: progress-checklist
 description: |
-  Tracks a multi-step task with a checklist at the end of every reply until the work is done. It builds the list from the ticket's acceptance criteria and the places that change, ticks items as they land, and keeps open questions on the list until they're decided. Use when the user asks to track progress, keep a checklist, follow ACs across several screens or files, or work through a ticket "one place at a time" / "separately".
+  Tracks a multi-step task with a checklist at the end of every reply until the work is done. The list comes from a ticket's acceptance criteria, a description of work to break down, or a list the user gives. It ticks items as they land and keeps open questions on the list until they're decided. Use when the user asks to track progress, keep a checklist, break something down into steps, follow ACs across several screens or files, or work through something "one place at a time" / "separately".
   Do NOT use for a single-step change, for a plan the user hasn't approved yet (plan first, then track), or to write a tracker file. The checklist only lives in the replies.
 user-invocable: true
-argument-hint: optional ticket ID or URL to seed the checklist from its acceptance criteria
+argument-hint: ticket ID/URL, a description of the work to break down, or a list of items
 allowed-tools: Read, Grep, Glob, Bash
 ---
 
@@ -14,12 +14,20 @@ The checklist lives **only in the replies**. Never write it to a file (no `notes
 
 ## Step 1: Gather the items
 
-Seed the list from what the work actually is:
+Work out what `$ARGUMENTS` is, then seed the list from it:
 
-1. **Acceptance criteria.** When `` is a ticket ID or URL, fetch it with the tracker's MCP tool (ClickUp, Jira, …) and read the ACs. Otherwise use the ACs from the conversation.
-2. **Places that change.** Turn each screen, file or step from the ACs or technical notes into its own item. Find the real paths with Grep or Glob before listing them, and never list a file you haven't located.
-3. **Shared criteria.** An AC that applies everywhere ("states unchanged on every screen", "not covered by toasts") becomes one item under *All*, not one copy per place.
-4. **Open questions.** An ambiguity spotted while gathering (a button the ACs don't mention, a row that may be out of scope) becomes an `Open question:` item.
+| `$ARGUMENTS` | Seed from |
+|---|---|
+| A ticket ID or URL (`86xk4m2p9`, `DEV-1234`, a ClickUp/Jira link) | Fetch it with the tracker's MCP tool and read its acceptance criteria and technical notes. If no tool can reach it, say so and ask for the ACs instead of guessing. |
+| A description of the work ("migrate the three list pages to SelectFilter") | Break it down into concrete steps. Check the codebase for the places it touches, and state the breakdown so the user can correct it before work starts. |
+| A list (bullets, numbered lines, comma-separated) | Take the items as given, one checklist item each, in the user's order. Don't reword, merge or split them. Add only *All* items and open questions alongside. |
+| Empty | Use the task already under way in the conversation, from its ACs, plan or the user's last request. If nothing in the conversation is multi-step, ask what to track. |
+
+Then shape the items:
+
+1. **Places that change.** Turn each screen, file or step into its own item. Find the real paths with Grep or Glob before listing them, and never list a file you haven't located.
+2. **Shared criteria.** An AC that applies everywhere ("states unchanged on every screen", "not covered by toasts") becomes one item under *All*, not one copy per place.
+3. **Open questions.** An ambiguity spotted while gathering (a button the ACs don't mention, a row that may be out of scope) becomes an `Open question:` item.
 
 Keep each item to one line: the place, then what changes there. Detail such as IDs, conditions and handlers belongs in the reply's body when you work on that item, not in the checklist.
 
